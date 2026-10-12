@@ -7,59 +7,26 @@ ZSH_THEME="agnoster"
 # 플러그인
 plugins=(
   git
-  zsh-syntax-highlighting
   zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 # Oh My Zsh 로드
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
-# 사용자 이름만 남겨놓기
+# 사용자 이름 + 랜덤 이모지
 prompt_context() {
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+  local -a emojis=(
+    "⚡️" "🎉" "🔥" "✨" "🌈" "🔮" "🤍" "📅" "💻"
+  )
+  local emoji_index=$(( RANDOM % ${#emojis[@]} + 1 ))
+
+  prompt_segment black default "PJH ${emojis[$emoji_index]}"
 }
-
-# 랜덤 이모지 프로필
-prompt_context() {
-  emojis=("⚡️" "🎉" "🔥" "✨" "🌈" "🔮" "🤍" "📅" "💻")
-"~/.zshrc" 62L, 1204B
-# Oh My Zsh 경로
-export ZSH="$HOME/.oh-my-zsh"
-
-# 테마
-ZSH_THEME="agnoster"
-
-# 플러그인
-plugins=(
-  git
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-)
-
-# Oh My Zsh 로드
-source $ZSH/oh-my-zsh.sh
-
-# 사용자 이름만 남겨놓기
-prompt_context() {
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
-}
-
-# 랜덤 이모지 프로필
-prompt_context() {
-  emojis=("⚡️" "🎉" "🔥" "✨" "🌈" "🔮" "🤍" "📅" "💻")
-prompt_context() {
-  emojis=("⚡️" "🎉" "🔥" "✨" "🌈" "🔮" "🤍" "📅" "💻")
-  RAND_EMOJI_N=$(( $RANDOM % ${#emojis[@]} + 1))
-  prompt_segment black default "${PJH} ${emojis[$RAND_EMOJI_N]} "
-}
-
-# ========================
-# Alias (개발용)
-# ========================
 
 # zsh
 alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
+alias ohmyzsh="cd ~/.oh-my-zsh"
 
 # npm
 alias nd="npm run dev"
@@ -71,99 +38,21 @@ alias np="npm run deploy"
 alias yd="yarn dev"
 alias yb="yarn build"
 alias yi="yarn"
-# Oh My Zsh 경로
-export ZSH="$HOME/.oh-my-zsh"
+alias yp="yarn deploy"
 
-# 테마
-ZSH_THEME="agnoster"
+# git
+alias ga="git add ."
+alias gc="git commit"
+alias gp="git push origin"
+alias gl="git pull origin"
+alias gs="git switch"
 
-# 플러그인
-plugins=(
-  git
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-)
-
-# Oh My Zsh 로드
-source $ZSH/oh-my-zsh.sh
-
-# 사용자 이름만 남겨놓기
-prompt_context() {
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+# VS Code
+code() {
+  VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@"
 }
 
-# 랜덤 이모지 프로필
-prompt_context() {
-  emojis=("⚡️" "🎉" "🔥" "✨" "🌈" "🔮" "🤍" "📅" "💻")
-prompt_context() {
-  emojis=("⚡️" "🎉" "🔥" "✨" "🌈" "🔮" "🤍" "📅" "💻")
-  RAND_EMOJI_N=$(( $RANDOM % ${#emojis[@]} + 1))
-  prompt_segment black default "${PJH} ${emojis[$RAND_EMOJI_N]} "
-}
-
-# ========================
-# Alias (개발용)
-# ========================
-
-# zsh
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-
-# npm
-alias nd="npm run dev"
-alias nb="npm run build"
-alias ni="npm install"
-alias np="npm run deploy"
-
-# yarn
-alias yd="yarn dev"
-alias yb="yarn build"
-alias yi="yarn"
-# Oh My Zsh 경로
-export ZSH="$HOME/.oh-my-zsh"
-
-# 테마
-ZSH_THEME="agnoster"
-
-# 플러그인
-plugins=(
-  git
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-)
-
-# Oh My Zsh 로드
-source $ZSH/oh-my-zsh.sh
-
-# 사용자 이름만 남겨놓기
-prompt_context() {
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
-}
-
-# 랜덤 이모지 프로필
-prompt_context() {
-  emojis=("⚡️" "🎉" "🔥" "✨" "🌈" "🔮" "🤍" "📅" "💻")
-# Oh My Zsh 경로
-export ZSH="$HOME/.oh-my-zsh"
-
-# 테마
-ZSH_THEME="agnoster"
-
-# 플러그인
-plugins=(
-  git
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-)
-
-# Oh My Zsh 로드
-source $ZSH/oh-my-zsh.sh
-
-# 사용자 이름만 남겨놓기
-prompt_context() {
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
-}
-
-# 랜덤 이모지 프로필
-prompt_context() {
-  emojis=("⚡️" "🎉" "🔥" "✨" "🌈" "🔮" "🤍" "📅" "💻")
+# 로컬 실행 경로
+if [[ -f "$HOME/.local/bin/env" ]]; then
+  source "$HOME/.local/bin/env"
+fi
